@@ -29,6 +29,7 @@
 								v-on:delete-item="deleteItem"></picker-list>
 						<picker-search
 								v-on:add-item="addSearchItem"
+                v-on:add-subpage="addSubpageItem"
 								v-on:search="search"
 								v-on:next-page="nextPage"
 								v-on:prev-page="prevPage"
@@ -299,7 +300,7 @@
 				this.searchResults = [];
 
 				this.$http.post( this.endpoints.search, {
-					"nonce": this.nonces.search,
+					"nonce": this.nonces.api,
 					"object_type": this.activeRelationship.object_type,
 					"post_type": this.activeRelationship.post_type,
 					"search": this.searchText,
@@ -355,10 +356,14 @@
 				return false;
 			},
 			addSearchItem( item ) {
+        console.log( item );
 				this.activeRelationship.selected.push( item );
 				var index = this.searchResults.indexOf( item );
 				this.searchResults[ index ].added = true;
 			},
+      addSubpageItem() {
+        console.log( 'we are here' );
+      },
 			reorderItems( items ) {
 				this.activeRelationship.selected = items;
 			},

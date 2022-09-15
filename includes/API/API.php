@@ -92,6 +92,7 @@ abstract class API {
 	public function localize_endpoints( array $data ): array {
 		$data['endpoints'][ $this->route ] = get_rest_url( get_current_blog_id(), 'content-connect/v1/' . $this->route );
 
+		// TODO: This, most likely, can be safely removed in favor of the `wp_rest` nonce.
 		if ( ! isset( $data['nonces']['api'] ) ) {
 			$data['nonces']['api'] = wp_create_nonce( 'content-connect-api' );
 		}
