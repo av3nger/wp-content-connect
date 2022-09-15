@@ -92,7 +92,9 @@ class AddRelationship extends API {
 		}
 
 		return array(
-			'postID' => $new_post_id,
+			'ID'    => $new_post_id,
+			'name'  => 'Draft post',
+			'added' => true,
 		);
 	}
 }

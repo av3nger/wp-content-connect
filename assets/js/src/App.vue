@@ -368,12 +368,18 @@
           "relationship_name": this.activeRelationship.name,
           "current_post_id": this.activeRelationship.current_post_id,
         } ).then( response => {
-          if ( ! response.ok || undefined === typeof response.body.postID ) {
+          if ( ! response.ok || undefined === typeof response.body.ID ) {
             console.log( "Issue adding a new relationship", response );
             return;
           }
 
-          window.open(`/wp-admin/post.php?post=${response.body.postID}&action=edit`, '_blank');
+          this.searchResults.push( response.body );
+
+          this.activeRelationship.selected.push( response.body );
+          const index = this.searchResults.indexOf( response.body );
+          this.searchResults[ index ].added = true;
+
+          window.open(`/wp-admin/post.php?post=${response.body.ID}&action=edit`, '_blank');
         });
       },
 			reorderItems( items ) {
