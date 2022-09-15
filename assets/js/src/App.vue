@@ -356,13 +356,25 @@
 				return false;
 			},
 			addSearchItem( item ) {
-        console.log( item );
 				this.activeRelationship.selected.push( item );
 				var index = this.searchResults.indexOf( item );
 				this.searchResults[ index ].added = true;
 			},
       addSubpageItem() {
-        console.log( 'we are here' );
+        this.$http.post( this.endpoints['create-relationship'], {
+          "nonce": this.nonces.api,
+          "object_type": this.activeRelationship.object_type,
+          "post_type": this.activeRelationship.post_type,
+          "relationship_name": this.activeRelationship.name,
+          "current_post_id": this.activeRelationship.current_post_id,
+        } ).then( response => {
+          if ( ! response.ok || undefined === typeof response.body.postID ) {
+            console.log( "Issue adding a new relationship", response );
+            return;
+          }
+
+          window.open(`/wp-admin/post.php?post=${response.body.postID}&action=edit`, '_blank');
+        });
       },
 			reorderItems( items ) {
 				this.activeRelationship.selected = items;
