@@ -368,8 +368,13 @@
           "relationship_name": this.activeRelationship.name,
           "current_post_id": this.activeRelationship.current_post_id,
         } ).then( response => {
-          if ( ! response.ok || undefined === typeof response.body.ID ) {
+          if ( ! response.ok || 'undefined' === typeof response.body.ID ) {
             console.log( "Issue adding a new relationship", response );
+            return;
+          }
+
+          if ( 0 === response.body.ID ) {
+            console.log( "Relationship post not created", response );
             return;
           }
 
