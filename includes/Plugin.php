@@ -2,6 +2,7 @@
 
 namespace TenUp\ContentConnect;
 
+use TenUp\ContentConnect\API\AddRelationship;
 use TenUp\ContentConnect\API\Search;
 use TenUp\ContentConnect\QueryIntegration\UserQueryIntegration;
 use TenUp\ContentConnect\QueryIntegration\WPQueryIntegration;
@@ -59,6 +60,15 @@ class Plugin {
 	public $search;
 
 	/**
+	 * Instance for AddRelationship class.
+	 *
+	 * @since 1.4.1
+	 * @access protected
+	 * @var AddRelationship
+	 */
+	protected $relationship;
+
+	/**
 	 * @var DeletedItems
 	 */
 	public $deleted_items;
@@ -106,6 +116,9 @@ class Plugin {
 
 		$this->search = new Search();
 		$this->search->setup();
+
+		$this->relationship = new AddRelationship();
+		$this->relationship->setup();
 
 		$this->deleted_items = new DeletedItems();
 		$this->deleted_items->setup();

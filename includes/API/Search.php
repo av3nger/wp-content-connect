@@ -2,49 +2,14 @@
 
 namespace TenUp\ContentConnect\API;
 
-class Search {
-
-	public function setup() {
-		add_action( 'rest_api_init', array( $this, 'register_endpoint' ) );
-		add_filter( 'tenup_content_connect_localize_data', array( $this, 'localize_endpoints' ) );
-	}
-
-	public function register_endpoint() {
-		register_rest_route( 'content-connect/v1', '/search', array(
-			'methods' => 'POST',
-			'callback' => array( $this, 'process_search' ),
-			'permission_callback' => array( $this, 'check_permission' ),
-		) );
-	}
-
-	public function localize_endpoints( $data ) {
-		$data['endpoints']['search'] = get_rest_url( get_current_blog_id(), 'content-connect/v1/search' );
-		$data['nonces']['search']    = wp_create_nonce( 'content-connect-search' );
-
-		return $data;
-	}
-
+class Search extends API {
 	/**
-	 * @param \WP_REST_Request $request
+	 * Endpoint name.
 	 *
-	 * @return bool
+	 * @since 1.4.1
+	 * @var string
 	 */
-	public function check_permission( $request ) {
-		$user = wp_get_current_user();
-
-		if ( $user->ID === 0 ) {
-			return false;
-		}
-
-		$nonce = $request->get_param( 'nonce' );
-
-		// If the user got the nonce, they were on the proper edit page
-		if ( ! wp_verify_nonce( $nonce, 'content-connect-search' ) ) {
-			return false;
-		}
-
-		return true;
-	}
+	public string $route = 'search';
 
 	/**
 	 * Handles calls to the search endpoint
@@ -53,7 +18,7 @@ class Search {
 	 *
 	 * @return array Array of posts or users that match the query
 	 */
-	public function process_search( $request ) {
+	public function process( $request ) {
 		$object_type = $request->get_param( 'object_type' );
 
 		if ( ! in_array( $object_type, array( 'post', 'user' ) ) ) {
