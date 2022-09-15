@@ -378,12 +378,7 @@
             return;
           }
 
-          this.searchResults.push( response.body );
-
           this.activeRelationship.selected.push( response.body );
-          const index = this.searchResults.indexOf( response.body );
-          this.searchResults[ index ].added = true;
-
           window.open(`/wp-admin/post.php?post=${response.body.ID}&action=edit`, '_blank');
         });
       },
