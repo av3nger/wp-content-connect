@@ -33,6 +33,7 @@
 								v-on:search="search"
 								v-on:next-page="nextPage"
 								v-on:prev-page="prevPage"
+                :objectType="activeRelationship.object_type"
 								:results="searchResults"
 								:searching="searching"
 								:didsearch="didSearch"

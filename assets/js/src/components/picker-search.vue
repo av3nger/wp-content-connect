@@ -6,7 +6,7 @@
 				<input class="content-connect-picker-search-input widefat" type="text" :id="_uid" v-model="searchtext">
 				<button class="button" type="submit">Search</button>
 			</form>
-			<button class="button content-connect-add-subpage" type="button" v-on:click.prevent.stop="addSubpage()">Add Relationship Subpage</button>
+			<button v-if="objectType !== 'user'" class="button content-connect-add-subpage" type="button" v-on:click.prevent.stop="addSubpage()">Add Relationship Subpage</button>
 		</div>
 
 		<ul class="content-connect-picker-search-list">
@@ -113,6 +113,7 @@
 <script>
 	export default {
 		props: {
+      objectType: "",
 			results: {},
 			searching: false,
 			searcherror: "",

@@ -30,7 +30,7 @@ class AddRelationship extends API {
 	 * @since 1.4.1
 	 * @var array|string[]
 	 */
-	private array $valid_objects = array( 'post', 'user' );
+	private array $valid_objects = array( 'post' );
 
 	/**
 	 * Handles calls to the create-relationship endpoint.
@@ -70,29 +70,11 @@ class AddRelationship extends API {
 		$relationship_name = sanitize_text_field( $request->get_param( 'relationship_name' ) );
 
 		$results = array();
-		switch ( $object_type ) {
-			case 'user':
-				$results = $this->create_user( $current_post_id );
-				break;
-			case 'post':
-				$results = $this->create_post( $current_post_id, $target_post_type, $relationship_name );
-				break;
+		if ( $object_type === 'post' ) {
+			$results = $this->create_post( $current_post_id, $target_post_type, $relationship_name );
 		}
 
 		return $results;
-	}
-
-	/**
-	 * Create a new user and assign relationship from current to target.
-	 *
-	 * @since 1.4.1
-	 *
-	 * @param int $c_post_id  Current post ID.
-	 *
-	 * @return array
-	 */
-	private function create_user( int $c_post_id ): array {
-		return array();
 	}
 
 	/**
