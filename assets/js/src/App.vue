@@ -33,6 +33,7 @@
 								v-on:search="search"
 								v-on:next-page="nextPage"
 								v-on:prev-page="prevPage"
+                :canCreateDrafts="canCreateDrafts"
                 :objectType="activeRelationship.object_type"
 								:results="searchResults"
 								:searching="searching"
@@ -218,6 +219,7 @@
 		data: function() {
 			return Object.assign({}, {
 				"activeRelationship": window.ContentConnectData.relationships[0],
+        "canCreateDrafts": window.ContentConnectData.canCreateDrafts,
 				"searchResults": [],
 				"searching": false,
 				"searchErrorMessage": "",

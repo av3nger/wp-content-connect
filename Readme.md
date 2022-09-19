@@ -169,6 +169,18 @@ Relationships can optionally support sortable related items. Order can be stored
 
 Since you can manage this relationship from both post types in the relationship, if you added a tire from the car page, and you had relationship data previously stored on the tire, the NEW car in the relationship will still show up in query results, at the very end (after all of your other pre-ordered data).
 
+### Enabling Relationships Manager
+Relationships can also be created through the UI. This can be enabled with the `tenup_content_connect_relationship_manager` filter.
+
+Example:
+
+```php
+add_filter( 'tenup_content_connect_relationship_manager', '__return_true' );
+```
+
+Enabling this option will give the users an option to automatically create and map new relationships via the Relationships metabox.
+
+Note: automatically creating and mapping post-to-user relationships is not allowed.
 
 ## Query Integration
 
