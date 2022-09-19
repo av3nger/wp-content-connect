@@ -365,11 +365,12 @@
 				var index = this.searchResults.indexOf( item );
 				this.searchResults[ index ].added = true;
 			},
-      addSubpageItem() {
+      addSubpageItem( subPageTitle ) {
         this.subpageErrorMessage = "";
 
         this.$http.post( this.endpoints['create-relationship'], {
           "nonce": this.nonces.api,
+          "title": subPageTitle,
           "object_type": this.activeRelationship.object_type,
           "post_type": this.activeRelationship.post_type,
           "relationship_name": this.activeRelationship.name,

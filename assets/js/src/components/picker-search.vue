@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
 	<div class="content-connect-picker-search-container">
 		<label class="content-connect-picker-search-input-label" :for="_uid">Search</label>
 		<div class="content-connect-picker-search-input-container">
@@ -7,10 +7,16 @@
 				<button class="button" type="submit">Search</button>
 			</form>
       <div v-if="canCreateDrafts" class="content-connect-subpage-section">
-        <button v-if="objectType !== 'user'" class="button" type="button" v-on:click.prevent.stop="addSubpage()">
+        <label for="rel-subpage">
           Add Relationship Subpage
-        </button>
-        <span v-if="subpageerror" class="error">{{ subpageerror }}</span>
+          <input class="widefat" type="text" id="rel-subpage" v-model="subpagetitle" placeholder="Draft post">
+        </label>
+        <div class="content-connect-subpage-section-controls">
+          <button v-if="objectType !== 'user'" class="button" type="button" v-on:click.prevent.stop="addSubpage()">
+            Add Subpage
+          </button>
+          <span v-if="subpageerror" class="error">{{ subpageerror }}</span>
+        </div>
       </div>
 		</div>
 
@@ -112,8 +118,14 @@
 
   .content-connect-subpage-section {
     display: flex;
-    align-items: center;
+    align-items: end;
     margin-top: 10px;
+  }
+
+  .content-connect-subpage-section-controls {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
   }
 
   .content-connect-subpage-section .error {
@@ -136,7 +148,8 @@
 		},
 		data: function() {
 			return {
-				searchtext: ''
+				searchtext: '',
+        subpagetitle: ''
 			}
 		},
 		methods: {
@@ -147,7 +160,7 @@
 				this.$emit( 'add-item', item );
 			},
       addSubpage() {
-        this.$emit( 'add-subpage' );
+        this.$emit( 'add-subpage', this.subpagetitle );
       },
 			nextPage() {
 				this.$emit( 'next-page' );

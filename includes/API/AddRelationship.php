@@ -68,10 +68,11 @@ class AddRelationship extends API {
 
 		$current_post_id   = (int) $request->get_param( 'current_post_id' );
 		$relationship_name = sanitize_text_field( $request->get_param( 'relationship_name' ) );
+		$post_title        = sanitize_text_field( $request->get_param( 'title' ) );
 
 		$results = array();
 		if ( $object_type === 'post' ) {
-			$results = $this->create_post( $current_post_id, $target_post_type, $relationship_name );
+			$results = $this->create_post( $current_post_id, $target_post_type, $relationship_name, $post_title );
 		}
 
 		return $results;
@@ -85,13 +86,14 @@ class AddRelationship extends API {
 	 * @param int    $c_post_id          Current post ID.
 	 * @param string $t_post_type        Target post type.
 	 * @param string $relationship_name  Relationship name.
+	 * @param string $post_title         Title for the new post.
 	 *
 	 * @return array
 	 */
-	private function create_post( int $c_post_id, string $t_post_type, string $relationship_name ): array {
+	private function create_post( int $c_post_id, string $t_post_type, string $relationship_name, string $post_title ): array {
 		$new_post_id = wp_insert_post(
 			array(
-				'post_title'  => esc_html__( 'Draft post', 'tenup-content-connect' ),
+				'post_title'  => empty( $post_title ) ? esc_html__( 'Draft post', 'tenup-content-connect' ) : $post_title,
 				'post_status' => 'draft',
 				'post_type'   => $t_post_type,
 			)
