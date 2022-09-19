@@ -32,6 +32,14 @@ class MetaBox {
 
 		wp_enqueue_script( 'tenup-content-connect', Plugin::instance()->url . 'assets/js/content-connect.js', array(), Plugin::instance()->version, true );
 		wp_localize_script( 'tenup-content-connect', 'ContentConnectData', apply_filters( 'tenup_content_connect_localize_data', $relationship_data ) );
+
+		wp_enqueue_script(
+			'tenup-content-connect-react',
+			Plugin::instance()->url . 'dist/js/block.js',
+			array( 'wp-components', 'wp-data', 'wp-edit-post', 'wp-element', 'wp-i18n', 'wp-plugins' ),
+			Plugin::instance()->version,
+			true
+		);
 	}
 
 	public function render( $post, $metabox ) {
