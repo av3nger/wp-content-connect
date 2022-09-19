@@ -38,6 +38,7 @@
 								:searching="searching"
 								:didsearch="didSearch"
 								:searcherror="searchErrorMessage"
+                :subpageerror="subpageErrorMessage"
 								:prevPages="prevPages"
 								:morePages="morePages"></picker-search>
 					</div>
@@ -221,6 +222,7 @@
 				"searching": false,
 				"searchErrorMessage": "",
 				"searchText": "",
+        "subpageErrorMessage": "",
 				"prevPages": false,
 				"morePages": false,
 				"currentPage": 1
@@ -362,6 +364,8 @@
 				this.searchResults[ index ].added = true;
 			},
       addSubpageItem() {
+        this.subpageErrorMessage = "";
+
         this.$http.post( this.endpoints['create-relationship'], {
           "nonce": this.nonces.api,
           "object_type": this.activeRelationship.object_type,
@@ -370,12 +374,12 @@
           "current_post_id": this.activeRelationship.current_post_id,
         } ).then( response => {
           if ( ! response.ok || 'undefined' === typeof response.body.ID ) {
-            console.log( "Issue adding a new relationship", response );
+            this.subpageErrorMessage = "An error occurred when adding a new relationship";
             return;
           }
 
           if ( 0 === response.body.ID ) {
-            console.log( "Relationship post not created", response );
+            this.subpageErrorMessage = "An error occurred. Relationship post not created";
             return;
           }
 

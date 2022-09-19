@@ -6,7 +6,12 @@
 				<input class="content-connect-picker-search-input widefat" type="text" :id="_uid" v-model="searchtext">
 				<button class="button" type="submit">Search</button>
 			</form>
-			<button v-if="objectType !== 'user'" class="button content-connect-add-subpage" type="button" v-on:click.prevent.stop="addSubpage()">Add Relationship Subpage</button>
+      <div class="content-connect-subpage-section">
+        <button v-if="objectType !== 'user'" class="button" type="button" v-on:click.prevent.stop="addSubpage()">
+          Add Relationship Subpage
+        </button>
+        <span v-if="subpageerror" class="error">{{ subpageerror }}</span>
+      </div>
 		</div>
 
 		<ul class="content-connect-picker-search-list">
@@ -105,8 +110,15 @@
 		float: right;
 	}
 
-  .content-connect-add-subpage {
+  .content-connect-subpage-section {
+    display: flex;
+    align-items: center;
     margin-top: 10px;
+  }
+
+  .content-connect-subpage-section .error {
+    color: #dc3232;
+    margin-left: 10px;
   }
 </style>
 
@@ -117,6 +129,7 @@
 			results: {},
 			searching: false,
 			searcherror: "",
+      subpageerror: "",
 			prevPages: false,
 			morePages: false
 		},
