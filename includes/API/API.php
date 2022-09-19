@@ -31,10 +31,6 @@ abstract class API {
 	 * @return void
 	 */
 	public function setup() {
-		if ( ! apply_filters( 'tenup_content_connect_relationship_manager', false ) ) {
-			return;
-		}
-
 		add_action( 'rest_api_init', array( $this, 'register_endpoint' ) );
 		add_filter( 'tenup_content_connect_localize_data', array( $this, 'localize_endpoints' ) );
 	}

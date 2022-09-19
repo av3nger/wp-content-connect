@@ -2,6 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import apiFetch from '@wordpress/api-fetch';
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { BaseControl, Button, CheckboxControl, TextControl } from '@wordpress/components';
@@ -22,8 +23,23 @@ const RelationshipsSelectPanel = () => {
 	const [ panel, togglePanel ] = useState( false );
 	const [ name, setName ] = useState( '' );
 
+	// Create selected relationships.
 	const createRelationships = () => {
-		// Create selected relationships.
+		apiFetch( {
+			path: '/content-connect/v1/create-relationships',
+			method: 'POST',
+			data: {
+				nonce: window.ContentConnectData.nonces.api,
+				object_type: window.ContentConnectData.relationships[0].object_type,
+				post_type: window.ContentConnectData.relationships[0].post_type,
+				current_post_id: window.ContentConnectData.relationships[0].current_post_id,
+				options,
+				name,
+				relationships
+			},
+		} ).then( ( response ) => {
+			console.log( response );
+		} );
 	}
 
 	return (
