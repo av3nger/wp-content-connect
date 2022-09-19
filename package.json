@@ -9,11 +9,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-js": "browserify -t vueify -e assets/js/src/content-connect.js -o assets/js/content-connect.js",
-    "watch-js": "watchify -v -t vueify -e assets/js/src/content-connect.js -o assets/js/content-connect.js"
+    "watch-js": "watchify -v -t vueify -e assets/js/src/content-connect.js -o assets/js/content-connect.js",
+    "build-react": "10up-toolkit build"
   },
   "author": "Chris Marslender <chris.marslender@10up.com>",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
+    "10up-toolkit": "^4.2.2",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
@@ -25,5 +27,10 @@
     "vuedraggable": "^2.14.1",
     "vueify": "^9.4.1",
     "watchify": "^3.11.1"
+  },
+  "10up-toolkit": {
+    "entry": {
+      "block": "./assets/js/src/gutenberg.js"
+    }
   }
 }
