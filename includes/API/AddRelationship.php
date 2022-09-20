@@ -50,7 +50,7 @@ class AddRelationship extends API {
 
 		$target_post_type = $request->get_param( 'post_type' );
 
-		if ( $object_type === 'post' ) {
+		if ( 'post' === $object_type ) {
 			$found_post_type = false;
 			foreach ( (array) $target_post_type as $post_type ) {
 				if ( post_type_exists( $post_type ) ) {
@@ -71,7 +71,7 @@ class AddRelationship extends API {
 		$post_title        = sanitize_text_field( $request->get_param( 'title' ) );
 
 		$results = array();
-		if ( $object_type === 'post' ) {
+		if ( 'post' === $object_type ) {
 			$results = $this->create_post( $current_post_id, $target_post_type, $relationship_name, $post_title );
 		}
 

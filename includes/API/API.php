@@ -66,7 +66,7 @@ abstract class API {
 	public function check_permission( $request ) {
 		$user = wp_get_current_user();
 
-		if ( $user->ID === 0 ) {
+		if ( 0 === $user->ID ) {
 			return false;
 		}
 
