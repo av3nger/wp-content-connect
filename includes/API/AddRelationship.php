@@ -107,9 +107,9 @@ class AddRelationship extends API {
 		}
 
 		return array(
-			'ID'    => $new_post_id,
-			'name'  => esc_html__( 'Draft post', 'tenup-content-connect' ),
 			'added' => true,
+			'ID'    => $new_post_id,
+			'name'  => empty( $post_title ) ? esc_html__( 'Draft post', 'tenup-content-connect' ) : $post_title,
 		);
 	}
 }
