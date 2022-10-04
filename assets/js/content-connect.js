@@ -164,7 +164,7 @@ module.exports = {
 			var index = this.searchResults.indexOf(item);
 			this.searchResults[index].added = true;
 		},
-		addSubpageItem: function addSubpageItem(subPageTitle) {
+		addRelatedPost: function addRelatedPost(subPageTitle) {
 			var _this2 = this;
 
 			this.subpageErrorMessage = "";
@@ -2395,7 +2395,7 @@ process.umask = function() { return 0; };
 		}
 	}
 
-	// Fixed #973: 
+	// Fixed #973:
 	_on(document, 'touchmove', function (evt) {
 		if (Sortable.active) {
 			evt.preventDefault();

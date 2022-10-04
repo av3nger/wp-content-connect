@@ -29,7 +29,7 @@
 								v-on:delete-item="deleteItem"></picker-list>
 						<picker-search
 								v-on:add-item="addSearchItem"
-                v-on:add-subpage="addSubpageItem"
+                v-on:add-subpage="addRelatedPost"
 								v-on:search="search"
 								v-on:next-page="nextPage"
 								v-on:prev-page="prevPage"
@@ -365,7 +365,7 @@
 				var index = this.searchResults.indexOf( item );
 				this.searchResults[ index ].added = true;
 			},
-      addSubpageItem( subPageTitle ) {
+      addRelatedPost( subPageTitle ) {
         this.subpageErrorMessage = "";
 
         this.$http.post( this.endpoints['create-relationship'], {
