@@ -25,7 +25,7 @@ module.exports = {
 			"searching": false,
 			"searchErrorMessage": "",
 			"searchText": "",
-			"subpageErrorMessage": "",
+			"relatedPostErrorMessage": "",
 			"prevPages": false,
 			"morePages": false,
 			"currentPage": 1
@@ -164,26 +164,26 @@ module.exports = {
 			var index = this.searchResults.indexOf(item);
 			this.searchResults[index].added = true;
 		},
-		addRelatedPost: function addRelatedPost(subPageTitle) {
+		addRelatedPost: function addRelatedPost(relatedPostTitle) {
 			var _this2 = this;
 
-			this.subpageErrorMessage = "";
+			this.relatedPostErrorMessage = "";
 
 			this.$http.post(this.endpoints['create-relationship'], {
 				"nonce": this.nonces.api,
-				"title": subPageTitle,
+				"title": relatedPostTitle,
 				"object_type": this.activeRelationship.object_type,
 				"post_type": this.activeRelationship.post_type,
 				"relationship_name": this.activeRelationship.name,
 				"current_post_id": this.activeRelationship.current_post_id
 			}).then(function (response) {
 				if (!response.ok || 'undefined' === typeof response.body.ID) {
-					_this2.subpageErrorMessage = "An error occurred when adding a new relationship";
+					_this2.relatedPostErrorMessage = "An error occurred when adding a new relationship";
 					return;
 				}
 
 				if (0 === response.body.ID) {
-					_this2.subpageErrorMessage = "An error occurred. Relationship post not created";
+					_this2.relatedPostErrorMessage = "An error occurred. Relationship post not created";
 					return;
 				}
 
@@ -211,7 +211,7 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tenup-content-connect vtab-frame"},[(_vm.relationships.length > 1)?_c('div',{staticClass:"vtab-left"},[_c('div',{staticClass:"vtab-frame-menu"},[_c('div',{staticClass:"vtab-menu"},[(_vm.relationships.length)?_vm._l((_vm.relationships),function(relationship){return _c('a',{staticClass:"vtab-menu-item",class:_vm.activeMenuItem(relationship),on:{"click":function($event){$event.preventDefault();_vm.setActiveRelationship(relationship)}}},[_vm._v("\n\t\t\t\t\t\t\t"+_vm._s(relationship.labels.name)+"\n\t\t\t\t\t\t")])}):_vm._e()],2)])]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"vtab-right"},[(_vm.activeRelationship)?[_c('div',{staticClass:"vtab-frame-title"},[_c('h1',[_vm._v(_vm._s(_vm.activeRelationship.labels.name))])]),_vm._v(" "),_c('div',{staticClass:"vtab-frame-content"},[_c('div',{staticClass:"vtab-content-area"},[_c('picker-list',{attrs:{"sortable":_vm.activeRelationship.sortable,"items":_vm.activeRelationship.selected},on:{"reorder-items":_vm.reorderItems,"delete-item":_vm.deleteItem}}),_vm._v(" "),_c('picker-search',{attrs:{"canCreateDrafts":_vm.canCreateDrafts,"objectType":_vm.activeRelationship.object_type,"results":_vm.searchResults,"searching":_vm.searching,"didsearch":_vm.didSearch,"searcherror":_vm.searchErrorMessage,"subpageerror":_vm.subpageErrorMessage,"prevPages":_vm.prevPages,"morePages":_vm.morePages},on:{"add-item":_vm.addSearchItem,"add-subpage":_vm.addRelatedPost,"search":_vm.search,"next-page":_vm.nextPage,"prev-page":_vm.prevPage}})],1)])]:_vm._e()],2),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.saveData),expression:"saveData"}],attrs:{"type":"hidden","name":"tenup-content-connect-relationships"},domProps:{"value":(_vm.saveData)},on:{"input":function($event){if($event.target.composing){ return; }_vm.saveData=$event.target.value}}})])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"tenup-content-connect vtab-frame"},[(_vm.relationships.length > 1)?_c('div',{staticClass:"vtab-left"},[_c('div',{staticClass:"vtab-frame-menu"},[_c('div',{staticClass:"vtab-menu"},[(_vm.relationships.length)?_vm._l((_vm.relationships),function(relationship){return _c('a',{staticClass:"vtab-menu-item",class:_vm.activeMenuItem(relationship),on:{"click":function($event){$event.preventDefault();_vm.setActiveRelationship(relationship)}}},[_vm._v("\n\t\t\t\t\t\t\t"+_vm._s(relationship.labels.name)+"\n\t\t\t\t\t\t")])}):_vm._e()],2)])]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"vtab-right"},[(_vm.activeRelationship)?[_c('div',{staticClass:"vtab-frame-title"},[_c('h1',[_vm._v(_vm._s(_vm.activeRelationship.labels.name))])]),_vm._v(" "),_c('div',{staticClass:"vtab-frame-content"},[_c('div',{staticClass:"vtab-content-area"},[_c('picker-list',{attrs:{"sortable":_vm.activeRelationship.sortable,"items":_vm.activeRelationship.selected},on:{"reorder-items":_vm.reorderItems,"delete-item":_vm.deleteItem}}),_vm._v(" "),_c('picker-search',{attrs:{"canCreateDrafts":_vm.canCreateDrafts,"objectType":_vm.activeRelationship.object_type,"results":_vm.searchResults,"searching":_vm.searching,"didsearch":_vm.didSearch,"searcherror":_vm.searchErrorMessage,"relatedposterror":_vm.relatedPostErrorMessage,"prevPages":_vm.prevPages,"morePages":_vm.morePages},on:{"add-item":_vm.addSearchItem,"add-relatedpost":_vm.addRelatedPost,"search":_vm.search,"next-page":_vm.nextPage,"prev-page":_vm.prevPage}})],1)])]:_vm._e()],2),_vm._v(" "),_c('br'),_vm._v(" "),_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.saveData),expression:"saveData"}],attrs:{"type":"hidden","name":"tenup-content-connect-relationships"},domProps:{"value":(_vm.saveData)},on:{"input":function($event){if($event.target.composing){ return; }_vm.saveData=$event.target.value}}})])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -279,7 +279,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"vue":50,"vue-hot-reload-api":48,"vuedraggable":51,"vueify/lib/insert-css":52}],3:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("*[data-v-a18a6d7e] {\n\t\tbox-sizing: border-box;\n\t}\n\n\t.content-connect-picker-search-container[data-v-a18a6d7e] {\n\t\tpadding-bottom: 20px;\n\t}\n\n\t.content-connect-picker-search-input-label[data-v-a18a6d7e] {\n\t\tdisplay: block;\n\t}\n\n\t.content-connect-picker-search-input-container form[data-v-a18a6d7e] {\n\t\tdisplay: flex;\n\t}\n\n\t.content-connect-picker-search-input[data-v-a18a6d7e] {\n\t\tflex: 1;\n\t\tmargin-right: 0.5em;\n\t}\n\n\t.content-connect-picker-search-item[data-v-a18a6d7e] {\n\t\twidth: 100%;\n\t\tposition: relative;\n\t\tpadding: 1em 1em 1em 0.5em;\n\t}\n\n\t.content-connect-picker-search-item.result[data-v-a18a6d7e]:nth-child(odd) {\n\t\tbackground-color: #f9f9f9;\n\t}\n\n\t.content-connect-picker-search-item.searching .spinner[data-v-a18a6d7e] {\n\t\tfloat: left;\n\t\tmargin-top: 0;\n\t}\n\n\t.content-connect-already-added[data-v-a18a6d7e],\n\t.content-connect-add-button[data-v-a18a6d7e] {\n\t\tdisplay: inline-block;\n\t\tfloat: right;\n\t\tposition: relative;\n\t}\n\n\t.content-connect-add-button[data-v-a18a6d7e] {\n\t\tcolor: #0073aa;\n\t\tcursor: pointer;\n\t}\n\n\t.content-connect-already-added[data-v-a18a6d7e] {\n\t\tcolor: #aaa;\n\t\tfont-style: italic;\n\t}\n\n\t.content-connect-add-button[data-v-a18a6d7e]:hover {\n\t\tcolor: #00a0d2;\n\t}\n\n\t.content-connect-picker-pagination[data-v-a18a6d7e] {\n\t\theight: 3em;\n\t\tborder-top: 1px solid #ddd;\n\t\tpadding-top: 20px;\n\t}\n\n\t.content-connect-picker-pagination a[data-v-a18a6d7e] {\n\t\tcursor: pointer;\n\t}\n\n\t.content-connect-picker-pagination .next-page[data-v-a18a6d7e] {\n\t\tfloat: right;\n\t}\n\n  .content-connect-subpage-section[data-v-a18a6d7e] {\n    display: flex;\n    align-items: end;\n    margin-top: 10px;\n  }\n\n  .content-connect-subpage-section-controls[data-v-a18a6d7e] {\n    display: flex;\n    align-items: center;\n    margin-left: 10px;\n  }\n\n  .content-connect-subpage-section .error[data-v-a18a6d7e] {\n    color: #dc3232;\n    margin-left: 10px;\n  }")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("*[data-v-a18a6d7e] {\n\t\tbox-sizing: border-box;\n\t}\n\n\t.content-connect-picker-search-container[data-v-a18a6d7e] {\n\t\tpadding-bottom: 20px;\n\t}\n\n\t.content-connect-picker-search-input-label[data-v-a18a6d7e] {\n\t\tdisplay: block;\n\t}\n\n\t.content-connect-picker-search-input-container form[data-v-a18a6d7e] {\n\t\tdisplay: flex;\n\t}\n\n\t.content-connect-picker-search-input[data-v-a18a6d7e] {\n\t\tflex: 1;\n\t\tmargin-right: 0.5em;\n\t}\n\n\t.content-connect-picker-search-item[data-v-a18a6d7e] {\n\t\twidth: 100%;\n\t\tposition: relative;\n\t\tpadding: 1em 1em 1em 0.5em;\n\t}\n\n\t.content-connect-picker-search-item.result[data-v-a18a6d7e]:nth-child(odd) {\n\t\tbackground-color: #f9f9f9;\n\t}\n\n\t.content-connect-picker-search-item.searching .spinner[data-v-a18a6d7e] {\n\t\tfloat: left;\n\t\tmargin-top: 0;\n\t}\n\n\t.content-connect-already-added[data-v-a18a6d7e],\n\t.content-connect-add-button[data-v-a18a6d7e] {\n\t\tdisplay: inline-block;\n\t\tfloat: right;\n\t\tposition: relative;\n\t}\n\n\t.content-connect-add-button[data-v-a18a6d7e] {\n\t\tcolor: #0073aa;\n\t\tcursor: pointer;\n\t}\n\n\t.content-connect-already-added[data-v-a18a6d7e] {\n\t\tcolor: #aaa;\n\t\tfont-style: italic;\n\t}\n\n\t.content-connect-add-button[data-v-a18a6d7e]:hover {\n\t\tcolor: #00a0d2;\n\t}\n\n\t.content-connect-picker-pagination[data-v-a18a6d7e] {\n\t\theight: 3em;\n\t\tborder-top: 1px solid #ddd;\n\t\tpadding-top: 20px;\n\t}\n\n\t.content-connect-picker-pagination a[data-v-a18a6d7e] {\n\t\tcursor: pointer;\n\t}\n\n\t.content-connect-picker-pagination .next-page[data-v-a18a6d7e] {\n\t\tfloat: right;\n\t}\n\n  .content-connect-related-page-section[data-v-a18a6d7e] {\n    display: flex;\n    align-items: end;\n    margin-top: 10px;\n  }\n\n  .content-connect-related-page-section-controls[data-v-a18a6d7e] {\n    display: flex;\n    align-items: center;\n    margin-left: 10px;\n  }\n\n  .content-connect-related-page-section .error[data-v-a18a6d7e] {\n    color: #dc3232;\n    margin-left: 10px;\n  }")
 ;(function(){
 "use strict";
 
@@ -293,14 +293,14 @@ exports.default = {
 		results: {},
 		searching: false,
 		searcherror: "",
-		subpageerror: "",
+		relatedposterror: "",
 		prevPages: false,
 		morePages: false
 	},
 	data: function data() {
 		return {
 			searchtext: '',
-			subpagetitle: ''
+			relatedposttitle: ''
 		};
 	},
 	methods: {
@@ -310,8 +310,8 @@ exports.default = {
 		add: function add(item) {
 			this.$emit('add-item', item);
 		},
-		addSubpage: function addSubpage() {
-			this.$emit('add-subpage', this.subpagetitle);
+		addRelatedPost: function addRelatedPost() {
+			this.$emit('add-relatedpost', this.relatedposttitle);
 		},
 		nextPage: function nextPage() {
 			this.$emit('next-page');
@@ -325,7 +325,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"content-connect-picker-search-container"},[_c('label',{staticClass:"content-connect-picker-search-input-label",attrs:{"for":_vm._uid}},[_vm._v("Search")]),_vm._v(" "),_c('div',{staticClass:"content-connect-picker-search-input-container"},[_c('form',{on:{"submit":function($event){$event.preventDefault();_vm.search($event)}}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.searchtext),expression:"searchtext"}],staticClass:"content-connect-picker-search-input widefat",attrs:{"type":"text","id":_vm._uid},domProps:{"value":(_vm.searchtext)},on:{"input":function($event){if($event.target.composing){ return; }_vm.searchtext=$event.target.value}}}),_vm._v(" "),_c('button',{staticClass:"button",attrs:{"type":"submit"}},[_vm._v("Search")])]),_vm._v(" "),(_vm.canCreateDrafts)?_c('div',{staticClass:"content-connect-subpage-section"},[_c('label',{attrs:{"for":"rel-subpage"}},[_vm._v("\n          Add Relationship Subpage\n          "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.subpagetitle),expression:"subpagetitle"}],staticClass:"widefat",attrs:{"type":"text","id":"rel-subpage","placeholder":"Draft post"},domProps:{"value":(_vm.subpagetitle)},on:{"input":function($event){if($event.target.composing){ return; }_vm.subpagetitle=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"content-connect-subpage-section-controls"},[(_vm.objectType !== 'user')?_c('button',{staticClass:"button",attrs:{"type":"button"},on:{"click":function($event){$event.preventDefault();$event.stopPropagation();_vm.addSubpage()}}},[_vm._v("\n            Add Subpage\n          ")]):_vm._e(),_vm._v(" "),(_vm.subpageerror)?_c('span',{staticClass:"error"},[_vm._v(_vm._s(_vm.subpageerror))]):_vm._e()])]):_vm._e()]),_vm._v(" "),_c('ul',{staticClass:"content-connect-picker-search-list"},[_vm._l((_vm.results),function(result){return _c('li',{staticClass:"content-connect-picker-search-item result"},[_c('span',{staticClass:"content-connect-selected-item-name"},[_vm._v(_vm._s(result.name))]),_vm._v(" "),(!result.added)?_c('span',{staticClass:"add-item content-connect-add-button",on:{"click":function($event){$event.preventDefault();$event.stopPropagation();_vm.add(result)}}},[_vm._v("add")]):_vm._e(),_vm._v(" "),(result.added)?_c('span',{staticClass:"add-item content-connect-already-added"},[_vm._v("Added")]):_vm._e()])}),_vm._v(" "),(_vm.searching)?_c('li',{staticClass:"content-connect-picker-search-item searching"},[_vm._m(0)]):_vm._e(),_vm._v(" "),(! _vm.searching && _vm.searcherror.length > 0)?_c('li',{staticClass:"content-connect-picker-search-item error"},[_c('p',{staticClass:"error"},[_vm._v(_vm._s(_vm.searcherror))])]):_vm._e()],2),_vm._v(" "),(! _vm.searching && ( _vm.morePages || _vm.prevPages ))?_c('div',{staticClass:"content-connect-picker-pagination"},[(_vm.prevPages)?_c('a',{staticClass:"prev-page",on:{"click":function($event){$event.preventDefault();$event.stopPropagation();_vm.prevPage()}}},[_vm._v("‹ Previous Page")]):_vm._e(),_vm._v(" "),(_vm.morePages)?_c('a',{staticClass:"next-page",on:{"click":function($event){$event.preventDefault();$event.stopPropagation();_vm.nextPage()}}},[_vm._v("Next Page ›")]):_vm._e()]):_vm._e()])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"content-connect-picker-search-container"},[_c('label',{staticClass:"content-connect-picker-search-input-label",attrs:{"for":_vm._uid}},[_vm._v("Search")]),_vm._v(" "),_c('div',{staticClass:"content-connect-picker-search-input-container"},[_c('form',{on:{"submit":function($event){$event.preventDefault();_vm.search($event)}}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.searchtext),expression:"searchtext"}],staticClass:"content-connect-picker-search-input widefat",attrs:{"type":"text","id":_vm._uid},domProps:{"value":(_vm.searchtext)},on:{"input":function($event){if($event.target.composing){ return; }_vm.searchtext=$event.target.value}}}),_vm._v(" "),_c('button',{staticClass:"button",attrs:{"type":"submit"}},[_vm._v("Search")])]),_vm._v(" "),(_vm.canCreateDrafts)?_c('div',{staticClass:"content-connect-related-page-section"},[_c('label',{attrs:{"for":"rel-relatedpost"}},[_vm._v("\n          Add Related Post\n          "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.relatedposttitle),expression:"relatedposttitle"}],staticClass:"widefat",attrs:{"type":"text","id":"rel-relatedpost","placeholder":"Draft post"},domProps:{"value":(_vm.relatedposttitle)},on:{"input":function($event){if($event.target.composing){ return; }_vm.relatedposttitle=$event.target.value}}})]),_vm._v(" "),_c('div',{staticClass:"content-connect-related-page-section-controls"},[(_vm.objectType !== 'user')?_c('button',{staticClass:"button",attrs:{"type":"button"},on:{"click":function($event){$event.preventDefault();$event.stopPropagation();_vm.addRelatedPost()}}},[_vm._v("\n            Add Related Post\n          ")]):_vm._e(),_vm._v(" "),(_vm.relatedposterror)?_c('span',{staticClass:"error"},[_vm._v(_vm._s(_vm.relatedposterror))]):_vm._e()])]):_vm._e()]),_vm._v(" "),_c('ul',{staticClass:"content-connect-picker-search-list"},[_vm._l((_vm.results),function(result){return _c('li',{staticClass:"content-connect-picker-search-item result"},[_c('span',{staticClass:"content-connect-selected-item-name"},[_vm._v(_vm._s(result.name))]),_vm._v(" "),(!result.added)?_c('span',{staticClass:"add-item content-connect-add-button",on:{"click":function($event){$event.preventDefault();$event.stopPropagation();_vm.add(result)}}},[_vm._v("add")]):_vm._e(),_vm._v(" "),(result.added)?_c('span',{staticClass:"add-item content-connect-already-added"},[_vm._v("Added")]):_vm._e()])}),_vm._v(" "),(_vm.searching)?_c('li',{staticClass:"content-connect-picker-search-item searching"},[_vm._m(0)]):_vm._e(),_vm._v(" "),(! _vm.searching && _vm.searcherror.length > 0)?_c('li',{staticClass:"content-connect-picker-search-item error"},[_c('p',{staticClass:"error"},[_vm._v(_vm._s(_vm.searcherror))])]):_vm._e()],2),_vm._v(" "),(! _vm.searching && ( _vm.morePages || _vm.prevPages ))?_c('div',{staticClass:"content-connect-picker-pagination"},[(_vm.prevPages)?_c('a',{staticClass:"prev-page",on:{"click":function($event){$event.preventDefault();$event.stopPropagation();_vm.prevPage()}}},[_vm._v("‹ Previous Page")]):_vm._e(),_vm._v(" "),(_vm.morePages)?_c('a',{staticClass:"next-page",on:{"click":function($event){$event.preventDefault();$event.stopPropagation();_vm.nextPage()}}},[_vm._v("Next Page ›")]):_vm._e()]):_vm._e()])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('p',[_c('span',{staticClass:"spinner is-active"}),_vm._v("\n\t\t\t\t\tSearching...\n\t\t\t\t")])}]
 __vue__options__._scopeId = "data-v-a18a6d7e"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")

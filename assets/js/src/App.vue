@@ -29,7 +29,7 @@
 								v-on:delete-item="deleteItem"></picker-list>
 						<picker-search
 								v-on:add-item="addSearchItem"
-                v-on:add-subpage="addRelatedPost"
+                v-on:add-relatedpost="addRelatedPost"
 								v-on:search="search"
 								v-on:next-page="nextPage"
 								v-on:prev-page="prevPage"
@@ -39,7 +39,7 @@
 								:searching="searching"
 								:didsearch="didSearch"
 								:searcherror="searchErrorMessage"
-                :subpageerror="subpageErrorMessage"
+                :relatedposterror="relatedPostErrorMessage"
 								:prevPages="prevPages"
 								:morePages="morePages"></picker-search>
 					</div>
@@ -224,7 +224,7 @@
 				"searching": false,
 				"searchErrorMessage": "",
 				"searchText": "",
-        "subpageErrorMessage": "",
+        "relatedPostErrorMessage": "",
 				"prevPages": false,
 				"morePages": false,
 				"currentPage": 1
@@ -365,24 +365,24 @@
 				var index = this.searchResults.indexOf( item );
 				this.searchResults[ index ].added = true;
 			},
-      addRelatedPost( subPageTitle ) {
-        this.subpageErrorMessage = "";
+      addRelatedPost( relatedPostTitle ) {
+        this.relatedPostErrorMessage = "";
 
         this.$http.post( this.endpoints['create-relationship'], {
           "nonce": this.nonces.api,
-          "title": subPageTitle,
+          "title": relatedPostTitle,
           "object_type": this.activeRelationship.object_type,
           "post_type": this.activeRelationship.post_type,
           "relationship_name": this.activeRelationship.name,
           "current_post_id": this.activeRelationship.current_post_id,
         } ).then( response => {
           if ( ! response.ok || 'undefined' === typeof response.body.ID ) {
-            this.subpageErrorMessage = "An error occurred when adding a new relationship";
+            this.relatedPostErrorMessage = "An error occurred when adding a new relationship";
             return;
           }
 
           if ( 0 === response.body.ID ) {
-            this.subpageErrorMessage = "An error occurred. Relationship post not created";
+            this.relatedPostErrorMessage = "An error occurred. Relationship post not created";
             return;
           }
 

@@ -6,16 +6,16 @@
 				<input class="content-connect-picker-search-input widefat" type="text" :id="_uid" v-model="searchtext">
 				<button class="button" type="submit">Search</button>
 			</form>
-      <div v-if="canCreateDrafts" class="content-connect-subpage-section">
-        <label for="rel-subpage">
-          Add Relationship Subpage
-          <input class="widefat" type="text" id="rel-subpage" v-model="subpagetitle" placeholder="Draft post">
+      <div v-if="canCreateDrafts" class="content-connect-related-page-section">
+        <label for="rel-relatedpost">
+          Add Related Post
+          <input class="widefat" type="text" id="rel-relatedpost" v-model="relatedposttitle" placeholder="Draft post">
         </label>
-        <div class="content-connect-subpage-section-controls">
-          <button v-if="objectType !== 'user'" class="button" type="button" v-on:click.prevent.stop="addSubpage()">
-            Add Subpage
+        <div class="content-connect-related-page-section-controls">
+          <button v-if="objectType !== 'user'" class="button" type="button" v-on:click.prevent.stop="addRelatedPost()">
+            Add Related Post
           </button>
-          <span v-if="subpageerror" class="error">{{ subpageerror }}</span>
+          <span v-if="relatedposterror" class="error">{{ relatedposterror }}</span>
         </div>
       </div>
 		</div>
@@ -116,19 +116,19 @@
 		float: right;
 	}
 
-  .content-connect-subpage-section {
+  .content-connect-related-page-section {
     display: flex;
     align-items: end;
     margin-top: 10px;
   }
 
-  .content-connect-subpage-section-controls {
+  .content-connect-related-page-section-controls {
     display: flex;
     align-items: center;
     margin-left: 10px;
   }
 
-  .content-connect-subpage-section .error {
+  .content-connect-related-page-section .error {
     color: #dc3232;
     margin-left: 10px;
   }
@@ -142,14 +142,14 @@
 			results: {},
 			searching: false,
 			searcherror: "",
-      subpageerror: "",
+      relatedposterror: "",
 			prevPages: false,
 			morePages: false
 		},
 		data: function() {
 			return {
 				searchtext: '',
-        subpagetitle: ''
+        relatedposttitle: ''
 			}
 		},
 		methods: {
@@ -159,8 +159,8 @@
 			add( item ) {
 				this.$emit( 'add-item', item );
 			},
-      addSubpage() {
-        this.$emit( 'add-subpage', this.subpagetitle );
+      addRelatedPost() {
+        this.$emit( 'add-relatedpost', this.relatedposttitle );
       },
 			nextPage() {
 				this.$emit( 'next-page' );
