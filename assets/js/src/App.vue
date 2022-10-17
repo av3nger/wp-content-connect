@@ -376,6 +376,11 @@
           "relationship_name": this.activeRelationship.name,
           "current_post_id": this.activeRelationship.current_post_id,
         } ).then( response => {
+          if ( 'undefined' !== typeof response.body.error && response.body.error ) {
+            this.relatedPostErrorMessage = response.body.error;
+            return;
+          }
+
           if ( ! response.ok || 'undefined' === typeof response.body.ID ) {
             this.relatedPostErrorMessage = "An error occurred when adding a new relationship";
             return;

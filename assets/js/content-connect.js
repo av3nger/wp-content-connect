@@ -177,6 +177,11 @@ module.exports = {
 				"relationship_name": this.activeRelationship.name,
 				"current_post_id": this.activeRelationship.current_post_id
 			}).then(function (response) {
+				if ('undefined' !== typeof response.body.error && response.body.error) {
+					_this2.relatedPostErrorMessage = response.body.error;
+					return;
+				}
+
 				if (!response.ok || 'undefined' === typeof response.body.ID) {
 					_this2.relatedPostErrorMessage = "An error occurred when adding a new relationship";
 					return;

@@ -91,6 +91,18 @@ class AddRelationship extends API {
 	 * @return array
 	 */
 	private function create_post( int $c_post_id, string $t_post_type, string $relationship_name, string $post_title ): array {
+		if ( ! current_user_can( 'edit_post', $c_post_id ) ) {
+			return array(
+				'error' => esc_html__( 'Insufficient permissions to edit current post.', 'wp-content-connect' ),
+			);
+		}
+
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return array(
+				'error' => esc_html__( 'Insufficient permissions to create new posts.', 'wp-content-connect' ),
+			);
+		}
+
 		$new_post_id = wp_insert_post(
 			array(
 				'post_title'  => empty( $post_title ) ? esc_html__( 'Draft post', 'tenup-content-connect' ) : $post_title,
