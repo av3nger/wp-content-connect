@@ -44,7 +44,7 @@ abstract class API {
 	 */
 	public function register_endpoint() {
 		register_rest_route(
-			'content-connect/v1/',
+			'content-connect/v1',
 			$this->route,
 			array(
 				'methods'             => 'POST',
