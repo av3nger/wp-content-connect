@@ -37,11 +37,11 @@ class PostToPost extends PostUI {
 
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
-				$post = $query->next_post();
+				$t_post = $query->next_post();
 
 				$final_post = array(
-					'ID' => $post->ID,
-					'name' => $post->post_title,
+					'ID'   => $t_post->ID,
+					'name' => $t_post->post_title,
 				);
 
 				$final_posts[] = apply_filters( 'tenup_content_connect_final_post', $final_post, $this->relationship );
