@@ -34,6 +34,7 @@
 								v-on:next-page="nextPage"
 								v-on:prev-page="prevPage"
 								v-on:set-title="setRelatedPostTitle"
+								:activeRelationship="activeRelationship.labels.name"
                 :canCreateDrafts="canCreateDrafts"
                 :objectType="activeRelationship.object_type"
 								:results="searchResults"
