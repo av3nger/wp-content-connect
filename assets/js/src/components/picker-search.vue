@@ -9,7 +9,7 @@
       <div v-if="canCreateDrafts" class="content-connect-related-page-section">
         <label for="rel-relatedpost">
           Add Related Post
-          <input class="widefat" type="text" id="rel-relatedpost" v-model="relatedposttitle" placeholder="Draft post">
+          <input class="widefat" type="text" id="rel-relatedpost" :value="posttitle" @input="$emit('set-title', $event.target.value)" placeholder="Draft post">
         </label>
         <div class="content-connect-related-page-section-controls">
           <button v-if="objectType !== 'user'" class="button" type="button" v-on:click.prevent.stop="addRelatedPost()">
@@ -142,14 +142,14 @@
 			results: {},
 			searching: false,
 			searcherror: "",
-      relatedposterror: "",
+			relatedposterror: "",
+			relatedposttitle: "",
 			prevPages: false,
 			morePages: false
 		},
 		data: function() {
 			return {
 				searchtext: '',
-        relatedposttitle: ''
 			}
 		},
 		methods: {

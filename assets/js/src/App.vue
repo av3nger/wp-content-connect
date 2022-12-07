@@ -33,13 +33,15 @@
 								v-on:search="search"
 								v-on:next-page="nextPage"
 								v-on:prev-page="prevPage"
+								v-on:set-title="setRelatedPostTitle"
                 :canCreateDrafts="canCreateDrafts"
                 :objectType="activeRelationship.object_type"
 								:results="searchResults"
 								:searching="searching"
 								:didsearch="didSearch"
 								:searcherror="searchErrorMessage"
-                :relatedposterror="relatedPostErrorMessage"
+								:relatedposterror="relatedPostErrorMessage"
+								:relatedposttitle="relatedPostTitle"
 								:prevPages="prevPages"
 								:morePages="morePages"></picker-search>
 					</div>
@@ -224,7 +226,8 @@
 				"searching": false,
 				"searchErrorMessage": "",
 				"searchText": "",
-        "relatedPostErrorMessage": "",
+				"relatedPostErrorMessage": "",
+				"relatedPostTitle": "",
 				"prevPages": false,
 				"morePages": false,
 				"currentPage": 1
@@ -258,6 +261,9 @@
 			}
 		},
 		methods: {
+			setRelatedPostTitle( title ) {
+				this.relatedPostTitle = title;
+			},
 			activeMenuItem( relationship ) {
 				return {
 					active: ( relationship === this.activeRelationship )
@@ -268,6 +274,7 @@
 
 				// Make sure we don't carry over old results to new view
 				this.searchResults = [];
+				this.relatedPostTitle = "";
 			},
 			search( searchText ) {
 				this.prevPages = false;
